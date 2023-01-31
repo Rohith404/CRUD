@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Index page</title>
+</head>
+<body>
+    <div class="row">
+        <h3>Plz sign up here</h3>
+        <section class="heading">
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="reg-but">Register</button>
+            </form>
+        </section>
+    </div>
+    <br><br>
+    <div class="row">
+        
+        <p>If you allready have an account then login here.</p>
+        <section class="heading">
+            <form action="{% url 'user_login' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="login-but">Login</button>
+            </form>
+        </section>
+
+    </div>
+    <br><br>
+    <div class="row">
+        
+        <p>If you are an admin login here.</p>
+       
+
+    </div>
+</body>
+</html>

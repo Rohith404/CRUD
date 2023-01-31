@@ -1,0 +1,86 @@
+{% load static %}
+{% block content %}
+
+<!Doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Login Page</title>
+     <!-- The above two links are bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+  </head>
+  <body class="full">
+    <h1 class="tit">Admin Login Here!</h1>
+     <div>
+        {% for message in messages %}
+        <h4>{{ message }}</h4>
+        {% endfor %}
+    </div>
+  <section>
+    <div class="container">
+        <div class="row">   
+            <div class="col-md-4"></div>
+
+            <div class="colour col-md-4">
+                <form action="/" method="POST">
+                    {% csrf_token %}
+                        <label for="name" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="username"><br><br>
+                    
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="password"><br><br>
+                    <button type="button" class="sub-but" id="btn" class="">Submit</button>
+                </form>
+            </div>
+
+            <div class="col-md-4"></div>
+        </div> 
+    </div> 
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      $('#btn').click(() => {
+        var username = $('#username').val()
+        var password = $('#password').val()
+
+        var data = {
+            'csrfmiddlewaretoken':'{{csrf_token}}',
+            'username':username,
+            'password':password, 
+        }
+        if(username == ''){
+            alert('Enter an username')
+        }else if(password == ''){
+            alert('Enter an password')
+        }else{
+            $.ajax({
+                url:'/admin1/',
+                method:'POST',
+                data:data,
+                dataType:'json',
+                success:function(data){
+                    if(data.success){
+                        alert('Admin logged in')
+                        window.location.replace('owner/')
+                    }else{
+                        alert('Invalid Username or password.')
+                    }
+                }
+
+            })
+        }
+    });
+  </script>
+
+
+  </body>
+</html>
+
+{% endblock %}
