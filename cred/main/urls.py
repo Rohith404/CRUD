@@ -11,5 +11,4 @@ urlpatterns = [
 	path('delete/<str:id>',views.delete, name = 'delete'),
 	path("add",views.add, name = "add"),
 	path("admin_logout",views.admin_logout, name = "admin_logout"),
-	
 ]
